@@ -326,9 +326,10 @@
                 <div class="field"><label>Población</label><input type="text" id="destPoblacion" list="mem-destPoblacion"></div>
             </div>
 
-            <div class="descripcion-box">
+            <div class="descripcion-box" style="position:relative">
                 <h3>Descripción de la Mercancía</h3>
                 <textarea id="descripcion"></textarea>
+                <img id="solucionesLogo" src="" style="position:absolute;bottom:2px;right:4px;max-width:50px;height:auto;opacity:0.4" alt="Soluciones Maese">
             </div>
 
             <div class="footer">
@@ -354,9 +355,6 @@
                 </div>
                 <div class="cut-line">✂ &nbsp; Recortar &nbsp; ✂</div>
             </div>
-        </div>
-        <div style="text-align:center;margin-top:8px;padding:4px;border-top:1px dashed #ccc">
-            <img id="solucionesLogo" src="" style="max-width:120px;height:auto;opacity:0.7" alt="Soluciones Maese">
         </div>
     </div>
 
@@ -680,9 +678,10 @@
                         <div class="field"><label>Población</label><input type="text" value="${esc(datos.destPoblacion)}" readonly></div>
                     </div>
 
-                    <div class="descripcion-box">
+                    <div class="descripcion-box" style="position:relative">
                         <h3>Descripción de la Mercancía</h3>
                         <textarea readonly>${esc(datos.descripcion)}</textarea>
+                        <img src="data:image/jpeg;base64,${SOLUCIONES_B64}" style="position:absolute;bottom:2px;right:4px;max-width:50px;height:auto;opacity:0.4" alt="Soluciones Maese">
                     </div>
 
                     <div class="footer">
@@ -705,9 +704,6 @@
                         </div>
                         <div class="cut-line">✂ &nbsp; Recortar &nbsp; ✂</div>
                     </div>
-                </div>
-                <div style="text-align:center;margin-top:8px;padding:4px;border-top:1px dashed #ccc">
-                    <img src="data:image/jpeg;base64,${SOLUCIONES_B64}" style="max-width:120px;height:auto;opacity:0.7" alt="Soluciones Maese">
                 </div>
             </div>
         </div>
