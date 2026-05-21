@@ -348,7 +348,7 @@
                     </div>
                     <div class="sig-box">
                         SAT Guadex S.L.<br>
-                        <img src="data:image/jpeg;base64,${SELLO_B64}" style="max-width:120px;height:auto;margin:4px 0;display:block" alt="Sello"><br>
+                        <img id="selloImg" src="" style="max-width:120px;height:auto;margin:4px 0;display:block" alt="Sello"><br>
                         Fdo.: _______________________
                     </div>
                 </div>
@@ -356,7 +356,7 @@
             </div>
         </div>
         <div style="text-align:center;margin-top:8px;padding:4px;border-top:1px dashed #ccc">
-            <img src="data:image/jpeg;base64,${SOLUCIONES_B64}" style="max-width:200px;height:auto;opacity:0.7" alt="Soluciones Maese">
+            <img id="solucionesLogo" src="" style="max-width:200px;height:auto;opacity:0.7" alt="Soluciones Maese">
         </div>
 
     <!-- Contenedor de páginas para impresión (oculto en pantalla) -->
@@ -796,6 +796,8 @@
         // ── INIT ──
         if (!gv('numAlbaran')) sv('numAlbaran', proximoNumero());
         cargarMemoria();
+        document.getElementById('solucionesLogo').src = 'data:image/jpeg;base64,' + SOLUCIONES_B64;
+        document.getElementById('selloImg').src = 'data:image/jpeg;base64,' + SELLO_B64;
     </script>
 </body>
 </html>
