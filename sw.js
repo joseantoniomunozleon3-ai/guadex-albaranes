@@ -1,4 +1,4 @@
-const CACHE_NAME = 'guadex-v2';
+const CACHE_NAME = 'guadex-v3';
 const urlsToCache = [
   './',
   './index.html',
@@ -8,9 +8,17 @@ const urlsToCache = [
 ];
 
 self.addEventListener('install', event => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(urlsToCache))
+  );
+});
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(names => Promise.all(
+      names.filter(n => n !== CACHE_NAME).map(n => caches.delete(n))
+    )).then(() => clients.claim())
   );
 });
 
