@@ -243,6 +243,7 @@
         <button class="btn btn-secondary" onclick="limpiar()">✕ Limpiar</button>
         <button class="btn btn-secondary" onclick="nuevo()">+ Nuevo</button>
         <button class="btn btn-hist" onclick="toggleHistorial()">📋 Registro</button>
+        <button class="btn btn-install" id="btnInstall" style="display:none;background:#1976D2;color:white" onclick="installApp()">📲 Instalar</button>
     </div>
 
     <!-- Historial -->
@@ -692,6 +693,23 @@
             limpiarFirma();
             sv('numAlbaran', proximoNumero());
             document.getElementById('numAlbaran').focus();
+        }
+
+        // ── INSTALL (PWA) ──
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('btnInstall').style.display = 'inline-block';
+        });
+        window.addEventListener('appinstalled', () => {
+            deferredPrompt = null;
+            document.getElementById('btnInstall').style.display = 'none';
+        });
+        function installApp() {
+            if (!deferredPrompt) return;
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => deferredPrompt = null);
         }
 
         // ── SERVICE WORKER ──
