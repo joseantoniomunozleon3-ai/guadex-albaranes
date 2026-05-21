@@ -144,7 +144,7 @@
             display: block; margin: 5px auto 0;
             border: 1px dashed #999; background: #fff;
             touch-action: none; cursor: crosshair;
-            width: 100%; height: 70px; max-width: 400px;
+            width: 100%; height: 120px; max-width: 400px;
         }
         .cut-line { text-align: center; margin-top: 12px; font-size: 10px; color: #666; letter-spacing: 2px; }
 
@@ -209,7 +209,8 @@
             .print-page .company-info { font-size: 12px; }
             .print-page .date-row { font-size: 13px; padding: 12px; margin-bottom: 14px; }
             .print-page .date-row input { font-size: 13px; }
-            .print-page .sig-box { font-size: 12px; padding-top: 12px; }
+            .print-page .sig-box { font-size: 12px; padding-top: 16px; }
+            .print-page .sig-box img.firma-img-print { height: 100px !important; max-width: 300px; }
             .print-page .footer { padding-top: 2px; }
 
             input, textarea { border: none !important; background: transparent !important; padding: 0 !important; outline: none !important; }
@@ -350,7 +351,7 @@
                     <div class="sig-box">
                         Transportista<br>
                         <span class="firma-instruccion" style="font-size:9px; color:#666;">Firma aquí 👇</span>
-                        <canvas id="firmaCanvas" width="400" height="100"></canvas>
+                        <canvas id="firmaCanvas" width="400" height="150"></canvas>
                         <button class="btn-clear" onclick="limpiarFirma()">🗑️ Borrar firma</button>
                     </div>
                     <div class="sig-box">
