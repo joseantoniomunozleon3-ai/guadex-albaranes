@@ -275,8 +275,11 @@
         <button class="btn btn-secondary" onclick="limpiar()">✕ Limpiar</button>
         <button class="btn btn-secondary" onclick="nuevo()">+ Nuevo</button>
         <button class="btn btn-hist" onclick="toggleHistorial()">📋 Registro</button>
+        <button class="btn btn-secondary" onclick="exportBackup()" style="background:#6D4C41;color:white">💾 Backup</button>
+        <button class="btn btn-secondary" onclick="document.getElementById('restoreInput').click()" style="background:#4E342E;color:white">📂 Restaurar</button>
         <button class="btn btn-install" id="btnInstall" style="display:none;background:#1976D2;color:white" onclick="installApp()">📲 Instalar</button>
     </div>
+    <input type="file" id="restoreInput" accept=".json" style="display:none" onchange="importBackup(event)">
 
     <!-- Historial -->
     <div id="histPanel" class="hist-panel">
@@ -714,6 +717,52 @@
 
         function esc(str) {
             return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+        }
+
+        // ── BACKUP / RESTORE ──
+        function exportBackup() {
+            const data = {
+                version: 1,
+                exportedAt: new Date().toISOString(),
+                alb_hist: JSON.parse(localStorage.getItem('alb_hist') || '[]'),
+                alb_mem: JSON.parse(localStorage.getItem('alb_mem') || '{}'),
+                alb_lastNum: localStorage.getItem('alb_lastNum') || ''
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'guadex-albaranes-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Backup descargado');
+        }
+        function importBackup(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function (ev) {
+                try {
+                    const data = JSON.parse(ev.target.result);
+                    if (!data.alb_hist || !Array.isArray(data.alb_hist)) {
+                        showToast('Archivo de backup no válido');
+                        return;
+                    }
+                    localStorage.setItem('alb_hist', JSON.stringify(data.alb_hist));
+                    if (data.alb_mem) localStorage.setItem('alb_mem', JSON.stringify(data.alb_mem));
+                    if (data.alb_lastNum) localStorage.setItem('alb_lastNum', data.alb_lastNum);
+                    albaranHistory = data.alb_hist;
+                    cargarMemoria();
+                    renderHistorial();
+                    showToast('Backup restaurado (' + data.alb_hist.length + ' albaranes)');
+                } catch (err) {
+                    showToast('Error al restaurar: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
         }
 
         // ── GENERAR, GUARDAR E IMPRIMIR ──
