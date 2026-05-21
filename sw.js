@@ -1,4 +1,4 @@
-const CACHE_NAME = 'guadex-v1';
+const CACHE_NAME = 'guadex-v2';
 const urlsToCache = [
   './',
   './index.html',
